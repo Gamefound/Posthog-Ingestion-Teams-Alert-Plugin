@@ -1,0 +1,45 @@
+{
+    "name": "Posthog Ingestion Alert Teams Plugin",
+    "url": "TODO",
+    "description": "Trigger Teams Webhooks when no events have been ingested to PostHog for a specified time period",
+    "main": "index.js",
+    "posthogVersion": ">=1.26.0",
+    "config": [
+        {
+            "markdown": "Every minute plugin check for new events and alerts when there have been zero within the chosen period"
+        },
+        {
+            "key": "timeRange",
+            "hint": "This is the number of consecutive minutes with no events before the alert will trigger",
+            "name": "No Ingestion Time Range (minutes)",
+            "type": "string",
+            "default": "30",
+            "required": true
+        },
+        {
+            "key": "webHookUrl",
+            "hint": "This is the teams webhook url we that will be called when no new events have been detected in the set time range",
+            "name": "Teamms Incoming WebHook URL",
+            "type": "string",
+            "default": "",
+            "required": true
+        },
+        {
+            "key": "posthogApiKey",
+            "hint": "Your Personal API Key is not the same as the Project API key",
+            "name": "PostHog API Key",
+            "type": "string",
+            "secret": true,
+            "default": "",
+            "required": true
+        },
+        {
+            "key": "posthogHost",
+            "hint": "Used to monitor ingestion",
+            "name": "URL of your PostHog instance",
+            "type": "string",
+            "default": "myposthog",
+            "required": true
+        }
+    ]
+}

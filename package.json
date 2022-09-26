@@ -1,0 +1,27 @@
+{
+    "name": "posthog-hello-world-plugin",
+    "private": true,
+    "version": "1.0.0",
+    "keywords": [
+        "posthog",
+        "plugin"
+    ],
+    "author": "PostHog <hey@posthog.com>",
+    "license": "MIT",
+    "jest": {
+        "testEnvironment": "node",
+        "automock": false,
+        "setupFiles": [
+            "./setupJest.js"
+        ]
+    },
+    "scripts": {
+        "test": "eslint index.js && jest ."
+    },
+    "devDependencies": {
+        "@posthog/plugin-scaffold": "0.10.0",
+        "eslint": "^8.9.0",
+        "jest": "^27.0.4",
+        "jest-fetch-mock": "^3.0.3"
+    }
+}
