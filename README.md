@@ -1,30 +1,8 @@
-# PostHog Plugin: Hello World Starter Kit
-
+# Posthog Ingestion Teams Alert Plugin
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
 
-This is a basic exemplary PostHog plugin. It adds property `"greeting"` to every event, with a configurable value (default: `"Hello world!"`).
-
-Feel free to use it as a base for your own plugins!
-
-## How to develop
-
-All of the plugin's code is located in the `index.js` file, which is JavaScript ran inside of PostHog.
-To get yourself up to speed with this environment, we sincerely recommend checking out our [Plugins overview in PostHog Docs]([the Plugins Overview](https://posthog.com/docs/plugins/build/overview).
-For a crash course, read our [plugin building tutorial in PostHog Docs](https://posthog.com/docs/plugins/build/tutorial).
-
-## How to test
-
-To test the plugin, you'll need to install a few `npm` dependencies already specified in `package.json`:
-```bash
-npm install
-```
-
-This will get you the testing library Jest and some our test helpers.
-Then to run tests it's just:
-
-```bash
-npm test
-```
+## Purpose of this plugin
+This plugin triggers a teams incoming webhook when no events have been ingested for a specified period of time. It can be used to alert you when ingestion for your project / instance is not working correctly.
 
 ## How to install
 
@@ -33,8 +11,14 @@ npm test
 1. Head to the Advanced tab.
 1. "Install from GitHub, GitLab or npm" using this repository's URL.
 
+## Things to be aware of
+* If you do not have a lot of users, or they are all based in the same timezone you may legitimately have 'dead periods' where no events are generated - increase the threshold if you wish reduce the noise, you can use the [heartbeat plugin](https://github.com/PostHog/posthog-heartbeat-plugin) to trigger events during dead periods if you wish to only monitor the ingestion pipeline
+* If an alert has already been triggered and ingestion has not recovered for an extended period, you will not receive another reminder that it is down
+* This is helpful to monitor if there are any ingestion issues within your posthog instance and within your setup (e.g. using the wrong project key)
+* If the plugin server itself is down, this plugin will not be able to alert you that ingestion has stopped
+
 ## Questions?
 
-### [Join our Slack community.](https://join.slack.com/t/posthogusers/shared_invite/enQtOTY0MzU5NjAwMDY3LTc2MWQ0OTZlNjhkODk3ZDI3NDVjMDE1YjgxY2I4ZjI4MzJhZmVmNjJkN2NmMGJmMzc2N2U3Yjc3ZjI5NGFlZDQ)
+### [Join PostHog's Slack community.](https://join.slack.com/t/posthogusers/shared_invite/enQtOTY0MzU5NjAwMDY3LTc2MWQ0OTZlNjhkODk3ZDI3NDVjMDE1YjgxY2I4ZjI4MzJhZmVmNjJkN2NmMGJmMzc2N2U3Yjc3ZjI5NGFlZDQ)
 
 We're here to help you with anything PostHog!
