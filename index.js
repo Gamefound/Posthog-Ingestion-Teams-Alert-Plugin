@@ -7,8 +7,9 @@ const status = {
     invalid: "invalid"
 }
 
-async function setupPlugin() {
-    console.info("Started plugin")
+async function setupPlugin({ config }) {
+    const card = createCard('Plugin loaded', 'Plugin is ready to detect ingestion errors', '00FF00');
+    await triggerWebHookAsync(config, card);
 }
 
 async function runEveryMinute({ config, cache }) {
@@ -33,6 +34,18 @@ async function runEveryMinute({ config, cache }) {
     }
 
     console.info("Ingestion OK")
+}
+
+function createCard(title, message, themeColor = '000000') {
+    const card = {
+        "@type": "MessageCard",
+        "@context": "http://schema.org/extensions",
+        "themeColor": themeColor,       
+        "title": title,
+        "text": message,
+    };
+
+    return card;
 }
 
 function setLastKnownStatus(cache, state) {
@@ -65,41 +78,19 @@ async function getTrendAsync(config) {
 }
 
 async function triggerAlertAsync(config, cache) {
-    await triggerWebHookAsync(config, status.invalid)
+    const card = createCard('Ingestion error detected', 'System did not ingest any events in at least ${parseInt(config.timeRange)} minutes', 'FF0000');
+    await triggerWebHookAsync(config, card);
     await setLastKnownStatus(cache, status.invalid)
 }
 
 async function resolveAlertAsync(config, cache) {
-    await triggerWebHookAsync(config, status.valid)
+    const card = createCard('Ingestion error resolved', 'System detected event ingestion', '00FF00');
+    await triggerWebHookAsync(config, card);
     await setLastKnownStatus(cache, status.valid)
 }
 
-async function triggerWebHookAsync(config, currentStatus) {
-    let title = "";
-    let message = "";
-    let themeColor = "";
-
-    let webHookUrl = config.webHookUrl;
-  
-    if (currentStatus === status.valid) {
-        title = "Ingestion error resolved"
-        message = "System detected event ingestion"
-        themeColor = "00FF00"        
-    } else {
-        title = "Ingestion error detected"
-        message = `System did not ingest any events in at least ${parseInt(config.timeRange)} minutes`
-        themeColor = "FF0000"
-    }
-
-    const card = {
-        "@type": "MessageCard",
-        "@context": "http://schema.org/extensions",
-        "themeColor": themeColor,       
-        "title": title,
-        "text": message,
-    };
-
-    const response = await fetch(webHookUrl, {
+async function triggerWebHookAsync(config, card) {
+    const response = await fetch(config.webHookUrl, {
         method: "post",
         body: JSON.stringify(card),
         headers: {
