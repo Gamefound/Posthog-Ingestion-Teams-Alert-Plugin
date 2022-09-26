@@ -1,6 +1,6 @@
 {
     "name": "Posthog Ingestion Alert Teams Plugin",
-    "url": "TODO",
+    "url": "https://github.com/Gamefound/Posthog-Ingestion-Teams-Alert-Plugin",
     "description": "Trigger Teams Webhooks when no events have been ingested to PostHog for a specified time period",
     "main": "index.js",
     "posthogVersion": ">=1.26.0",
