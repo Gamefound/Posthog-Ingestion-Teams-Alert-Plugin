@@ -1,5 +1,7 @@
 # Posthog Ingestion Teams Alert Plugin
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![CI](https://github.com/Gamefound/Posthog-Ingestion-Teams-Alert-Plugin/actions/workflows/main.yml/badge.svg?branch=master)](https://github.com/Gamefound/Posthog-Ingestion-Teams-Alert-Plugin/actions/workflows/main.yml)
+
 
 ## Purpose of this plugin
 This plugin triggers a teams incoming webhook when no events have been ingested for a specified period of time. It can be used to alert you when ingestion for your project / instance is not working correctly.
