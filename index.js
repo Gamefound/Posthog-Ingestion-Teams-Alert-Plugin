@@ -7,7 +7,7 @@ const status = {
     invalid: "invalid"
 }
 
-async function setupPlugin({ config }) {
+async function setupPlugin() {
     console.info("Plugin loaded")
 }
 
