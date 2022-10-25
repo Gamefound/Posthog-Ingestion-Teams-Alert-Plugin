@@ -8,8 +8,7 @@ const status = {
 }
 
 async function setupPlugin({ config }) {
-    const card = createCard('Plugin loaded', 'Plugin is ready to detect ingestion errors', '00FF00');
-    await triggerWebHookAsync(config, card);
+    console.info("Plugin loaded")
 }
 
 async function runEveryMinute({ config, cache }) {
